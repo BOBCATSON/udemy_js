@@ -69,33 +69,25 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     diceDom.style.display = 'block';
     diceDom.src = 'dice-' + dice + '.png';
 
-  //update round score, but only if the roll wasnt a 1
-    if (dice !== 1) {
-
-      if (dice === 6 && lastRoll === false) {
-        lastRoll = true;
-      } else {
-
-      }
-
-
-      if (dice === 6 && lastRoll) {
-        // score = 0
-        console.log('6 & lastroll 6');
-        document.querySelector('#current-' + activePlayer).textContent = '0';
-        // reset lastRoll to false
-        lastRoll = false;
-        // other players turn
-        changePlayer();
-      } else {
+  // check if current roll an last roll were both 6
+  if (dice === 6 && lastRoll === 6) {
+    document.getElementById('score-' + activePlayer).textContent= '0';
+    scores[activePlayer] = 0;
+    console.log('66 buddy...');
+    changePlayer();
+  } else {
+      //update round score, but only if the roll wasnt a 1
+      if (dice !== 1) {
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      } else {
+        changePlayer();
       }
-
-    } else {
-      changePlayer();
     }
+
   }
+  // save the last roll variable
+  lastRoll = dice;
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
