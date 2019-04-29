@@ -70,20 +70,20 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     diceDom.src = 'dice-' + dice + '.png';
 
   // check if current roll an last roll were both 6
-  if (dice === 6 && lastRoll === 6) {
-    document.getElementById('score-' + activePlayer).textContent= '0';
-    scores[activePlayer] = 0;
-    console.log('66 buddy...');
-    changePlayer();
-  } else {
-      //update round score, but only if the roll wasnt a 1
-      if (dice !== 1) {
-        roundScore += dice;
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-      } else {
+      if (lastRoll === 6 && dice === 6) {
+        scores[activePlayer] = 0;
+        document.getElementById('score-' + activePlayer).textContent= '0';
+        console.log('Double 6 buddy...');
         changePlayer();
+      } else {
+        //update round score, but only if the roll wasnt a 1
+        if (dice !== 1) {
+          roundScore += dice;
+          document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+          changePlayer();
+        }
       }
-    }
 
   }
   // save the last roll variable
@@ -97,8 +97,17 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
   // update UI
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
+    var input = document.querySelector('.score-value').value;
+    var winningScore;
+
+    if (input) {
+      winningScore = input;
+    } else {
+      winningScore = 100;
+    }
+
   // has player won the game?
-    if(scores[activePlayer] >= 100) {
+    if(scores[activePlayer] >= winningScore) {
       gameRunning = false;
       document.getElementById('name-' + activePlayer).textContent = 'Winner!';
       document.querySelector('.dice').style.display = 'none';
