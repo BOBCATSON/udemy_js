@@ -21,9 +21,8 @@ function init() {
   gameRunning = true;
   lastRoll = false;
 
-  document.querySelector('.dice').style.display = 'none';
-  document.querySelector('.dice-2').style.display = 'none';
-  // document.getElementsByClassName('dice-2').style.display = 'none';
+  document.querySelector('#dice-1').style.display = 'block';
+  document.querySelector('#dice-2').style.display = 'block';
 
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
@@ -50,7 +49,8 @@ function changePlayer() {
   document.querySelector('.player-0-panel').classList.toggle('active');
   document.querySelector('.player-1-panel').classList.toggle('active');
 
-  document.querySelector('.dice').style.display = 'none';
+  document.querySelector('#dice-1').style.display = 'none';
+  document.querySelector('#dice-2').style.display = 'none';
 }
 
 
@@ -58,7 +58,8 @@ function changePlayer() {
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gameRunning) {
     // random number
-    var dice = Math.floor(Math.random() * 6 ) + 1;
+    var dice1 = Math.floor(Math.random() * 6 ) + 1;
+    var dice2 = Math.floor(Math.random() * 6 ) + 1;
 
   //display result
     // setter - how to set a value
@@ -68,8 +69,9 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     // getter - how to take a value
     // var x = document.querySelector('#score-0').textContent;
     var diceDom = document.querySelector('.dice');
-    diceDom.style.display = 'block';
-    diceDom.src = 'dice-' + dice + '.png';
+
+    document.querySelector('#dice-1').src = 'dice-' + dice1 + '.png';
+    document.querySelector('#dice-2').src = 'dice-' + dice2 + '.png';
 
   // check if current roll an last roll were both 6
       if (lastRoll === 6 && dice === 6) {
