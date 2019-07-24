@@ -37,3 +37,46 @@ var heartAge = arrayCalc(ages, maxHeartRate);
 console.log(ages);
 console.log(fullAge);
 console.log(heartAge);
+
+
+
+
+//Closures
+
+function retirement(retirementAge) {
+  var a = ' years left until retirment.';
+  return function(yearOfBirth) {
+    var age = 2019 - yearOfBirth;
+    console.log((retirementAge - age ) + a );
+  }
+}
+
+var retirementUK = retirement(65);
+var retirementUS = retirement(66);
+var retirementGermany = retirement(65);
+
+
+retirementUK(1984);
+retirementUS(1990);
+retirementGermany(1988);
+
+retirement(68)(1984);
+
+
+//rewrite interview function to use Closures
+
+function interviewQuestion(job) {
+  return function(name) {
+    if (job === 'designer') {
+      console.log('Hello ' + name + ', can you explain UX?');
+    } else if (job === 'teacher') {
+      console.log('Hello ' + name + ', what subject do you teach?');
+    } else {
+      console.log('Hello ' + name + ', what do you do?');
+    }
+  }
+}
+
+interviewQuestion('designer')('Tom');
+interviewQuestion('teacher')('Terry');
+interviewQuestion('unemployed')('Leroy');
