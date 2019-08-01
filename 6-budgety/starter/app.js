@@ -1,20 +1,21 @@
 
 //module function using an IIFE
-//BUDGET CONTROLLER
+///////////////////////////////////////////////////////////////BUDGET CONTROLLER
 var budgetController = (function() {
 
 
 })();
 
 
-//UI CONTROLLER
-var UIController = (function()
+///////////////////////////////////////////////////////////////////UI CONTROLLER
+var UIController = (function() {
 
-  var DOMstrings= {
+  var DOMstrings = {
     inputType: '.add__type',
     inputDescription: '.add__description',
-    inputValue: '.add__value'
-  }
+    inputValue: '.add__value',
+    inputButton: '.add__btn'
+  };
 
   return {
     getInput: function() {
@@ -23,14 +24,36 @@ var UIController = (function()
         description: document.querySelector(DOMstrings.inputDescription).value,
         value: document.querySelector(DOMstrings.inputValue).value
       }
+    },
+
+    getDOMstrings: function() {
+      return DOMstrings;
     }
   }
 
 })();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
+
+  var DOM = UICtrl.getDOMstrings();
 
   var ctrlAddItem = function() {
     // get field input data
@@ -42,7 +65,7 @@ var controller = (function(budgetCtrl, UICtrl) {
     // display budget on UI
   };
 
-  document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+  document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
 
   document.addEventListener('keypress', function(e) {
     if (e.keycode === 13 || event.which === 13) {
