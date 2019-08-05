@@ -1,10 +1,38 @@
-
+//
 //module function using an IIFE
 ///////////////////////////////////////////////////////////////BUDGET CONTROLLER
 var budgetController = (function() {
 
+  //function constructor - starts with a capital and takes arguments
+  var Expense = function(id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  }
+
+  var Income = function(id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  }
+
+  var data = {
+    allItems: {
+      exp: [],
+      inc: []
+    },
+    totals: {
+      exp: 0,
+      inc: 0
+    }
+  }
+
+
 
 })();
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////UI CONTROLLER
@@ -42,18 +70,22 @@ var UIController = (function() {
 
 
 
-
-
-
-
-
-
-
-
 //GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
 
-  var DOM = UICtrl.getDOMstrings();
+  var setupEventListeners = function() {
+
+    var DOM = UICtrl.getDOMstrings();
+
+    document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
+
+    document.addEventListener('keypress', function(e) {
+      if (e.keycode === 13 || event.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  };
+
 
   var ctrlAddItem = function() {
     // get field input data
@@ -65,17 +97,13 @@ var controller = (function(budgetCtrl, UICtrl) {
     // display budget on UI
   };
 
-  document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
-
-  document.addEventListener('keypress', function(e) {
-    if (e.keycode === 13 || event.which === 13) {
-      ctrlAddItem();
-    } else {
-      e.eventPreventDefault;
+  return {
+    init: function() {
+      setupEventListeners();
     }
-  });
-
-
-
+  }
 
 })(budgetController, UIController);
+
+
+controller.init();
