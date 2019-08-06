@@ -1,5 +1,7 @@
 //
-//module function using an IIFE
+//module function using an IIFE that returns an object
+
+//the secret of the module patter is that it returns an object contaning all of the functions that we want to be publc, so the functions that we want to give the outside scope access to.
 ///////////////////////////////////////////////////////////////BUDGET CONTROLLER
 var budgetController = (function() {
 
@@ -8,14 +10,15 @@ var budgetController = (function() {
     this.id = id;
     this.description = description;
     this.value = value;
-  }
+  };
 
   var Income = function(id, description, value) {
     this.id = id;
     this.description = description;
     this.value = value;
-  }
+  };
 
+//it's better to group data together if possible
   var data = {
     allItems: {
       exp: [],
@@ -25,9 +28,24 @@ var budgetController = (function() {
       exp: 0,
       inc: 0
     }
+  };
+
+//this is how to expose a method - it keeps the variables private
+//you can have public and private methods -
+  return {
+    AddItem: function(type, des, val) {
+
+      var newItem;
+      ID = 0;
+
+      if (type === 'exp') {
+        newItem = new Expense(ID, des, val);
+      } else if (type === 'inc') {
+        newItem = new Income(ID, des, val);
+      }
+
+    }
   }
-
-
 
 })();
 
